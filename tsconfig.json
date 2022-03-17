@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": ".",
+    "esModuleInterop": true,
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "paths": {
+      "~/*": ["./*"]
+    },
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "esnext",
+    "types": ["vite/client", "vue"]
+  },
+  "include": [
+    "./**/*.ts",
+    "./**/*.d.ts",
+    "./**/*.tsx",
+    "./**/*.vue",
+    "./**/*.json",
+    "./**/*.json5"
+  ],
+  "ts-node": {
+    "transpileOnly": true
+  }
+}

@@ -1,0 +1,6 @@
+{
+  seo: {
+    title: "Vite SSR template",
+    description: "Template using Vite SSR plugin with Axios, Pinia, Tailwind CSS, ESLint and Prettier"
+  }
+}
