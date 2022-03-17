@@ -1,11 +1,11 @@
-import express from "express"
-import compression from "compression"
+import * as process from "process"
 import * as vite from "vite"
+import express, { static as expressStatic } from "express"
+import compression from "compression"
 import { createPageRenderer } from "vite-plugin-ssr"
 
 
 const isProduction = process.env.NODE_ENV === "production"
-
 const root = `${__dirname}/..`
 
 startServer()
@@ -17,7 +17,7 @@ async function startServer() {
 
   let viteDevServer
   if (isProduction) {
-    app.use(express.static(`${root}/dist/client`))
+    app.use(expressStatic(`${root}/dist/client`))
   }
   else {
     viteDevServer = await vite.createServer({

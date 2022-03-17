@@ -1,19 +1,17 @@
-import { renderToNodeStream } from "@vue/server-renderer"
-import { escapeInject } from "vite-plugin-ssr"
-
-import { createApp } from "./app"
-import { getPageTitle } from "~/utils/getPageTitle"
-import { i18n } from "~/utils/i18n"
-import { globals } from "~/utils/env"
-
 import type { PageContext } from "~/models/PageContext"
 import type { PageContextBuiltIn } from "vite-plugin-ssr"
 
+import { createApp } from "./app"
+import { escapeInject } from "vite-plugin-ssr"
 import favicon from "~/public/favicon.svg"
-
+import { getPageTitle } from "~/utils/getPageTitle"
+import { globals } from "~/utils/env"
+import { i18n } from "~/utils/i18n"
+import { renderToNodeStream } from "@vue/server-renderer"
 
 export { passToClient }
 export { render, onBeforeRender }
+
 
 const passToClient = ["pageProps", "documentProps", "initialState"]
 

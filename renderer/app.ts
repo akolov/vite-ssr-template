@@ -1,18 +1,15 @@
-import { createSSRApp, markRaw, reactive } from "@vue/runtime-dom"
-import { defineComponent, h } from "@vue/runtime-core"
-import { useI18n } from "vue-i18n"
-
-import { setPageContext } from "~/utils/usePageContext"
-import { i18n, en } from "~/utils/i18n"
-import { globals } from "~/utils/env"
-
-import { createPinia } from "pinia"
-import devalue from "@nuxt/devalue"
-
 import type { Component, PageContext } from "~/models/PageContext"
 
-import axios from "axios"
+import { createSSRApp, defineComponent, h, markRaw, reactive } from "vue"
+import { en, i18n } from "~/utils/i18n"
+
 import PageShell from "~/components/PageShell.vue"
+import axios from "axios"
+import { createPinia } from "pinia"
+import devalue from "@nuxt/devalue"
+import { globals } from "~/utils/env"
+import { setPageContext } from "~/utils/usePageContext"
+import { useI18n } from "vue-i18n"
 
 
 axios.defaults.headers.common["X-WebClient"] = `${globals.appName}/${globals.appVersion} (build:${globals.appVersionBuild})`
@@ -25,13 +22,6 @@ function createApp(pageContext: PageContext) {
 
   let rootComponent: Component
   const PageWithWrapper = defineComponent({
-    created() {
-      rootComponent = this
-    },
-    data: () => ({
-      Page: markRaw(Page),
-      pageProps: markRaw(pageContext.pageProps || {}),
-    }),
     setup() {
       return useI18n({
         locale: "en",
@@ -40,6 +30,13 @@ function createApp(pageContext: PageContext) {
           en: en
         }
       })
+    },
+    data: () => ({
+      Page: markRaw(Page),
+      pageProps: markRaw(pageContext.pageProps || {}),
+    }),
+    created() {
+      rootComponent = this
     },
     render() {
       return h(

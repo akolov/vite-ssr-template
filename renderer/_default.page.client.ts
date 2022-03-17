@@ -1,9 +1,8 @@
-import { createApp } from "./app"
-import { useClientRouter } from "vite-plugin-ssr/client/router"
-import { getPageTitle } from "~/utils/getPageTitle"
-
 import type { PageContext } from "~/models/PageContext"
 import type { PageContextBuiltInClient } from "vite-plugin-ssr/client/router"
+import { createApp } from "./app"
+import { getPageTitle } from "~/utils/getPageTitle"
+import { useClientRouter } from "vite-plugin-ssr/client/router"
 
 
 let context: ReturnType<typeof createApp>
@@ -30,10 +29,10 @@ hydrationPromise.then(() => {
 })
 
 function onTransitionStart() {
-  document.querySelector(".content")!.classList.add("page-transition-before")
+  document.querySelector(".content")?.classList.add("page-transition-before")
 }
 
 function onTransitionEnd() {
-  document.querySelector(".content")!.classList.remove("page-transition-before")
-  document.querySelector(".content")!.classList.add("page-transition-after")
+  document.querySelector(".content")?.classList.remove("page-transition-before")
+  document.querySelector(".content")?.classList.add("page-transition-after")
 }

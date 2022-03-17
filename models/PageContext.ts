@@ -1,8 +1,10 @@
-export type Component = any
+import { StateTree } from "pinia"
+
+export type Component = object
 
 export type PageContext = {
   Page: Component
-  initialState: any
+  initialState: Record<string, StateTree>
   appHtml: string
   pageProps?: Record<string, unknown>
   pageExports: {

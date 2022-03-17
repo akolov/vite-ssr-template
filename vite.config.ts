@@ -1,12 +1,14 @@
-import vue from "@vitejs/plugin-vue"
-import vueI18n from "@intlify/vite-plugin-vue-i18n"
-import ssr from "vite-plugin-ssr/plugin"
-import path from "path"
-
 import { UserConfig } from "vite"
+import eslintPlugin from "vite-plugin-eslint"
+import path from "path"
+import { ssr } from "vite-plugin-ssr/plugin"
+import vue from "@vitejs/plugin-vue"
+import { vueI18n } from "@intlify/vite-plugin-vue-i18n"
+
 
 const config: UserConfig = {
   plugins: [
+    eslintPlugin(),
     vue(),
     vueI18n({
       include: path.resolve(__dirname, "./locales/**")

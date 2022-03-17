@@ -1,5 +1,3 @@
-const { extendDefaultPlugins } = require("svgo");
-
 const SEED = 5381
 function djb2a(str) {
   let hash = SEED
