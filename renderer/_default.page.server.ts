@@ -30,6 +30,7 @@ async function render(pageContext: PageContextBuiltIn & PageContext) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0"/>
         <meta name="description" content="${desc}"/>
         <meta property="og:image" content="${globals.baseURL}/opengraph.png"/>
+        <meta name="og:description" content="${desc}"/>
         <title>${title}</title>
       </head>
       <body>
