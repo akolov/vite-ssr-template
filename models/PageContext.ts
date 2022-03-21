@@ -1,6 +1,6 @@
 import { StateTree } from "pinia"
 
-export type Component = object
+export type Component = object & { Page?: Component, pageProps?: Record<string, unknown> }
 
 export type PageContext = {
   Page: Component
