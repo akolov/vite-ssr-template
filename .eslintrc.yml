@@ -15,7 +15,7 @@ overrides:
     env:
       node: true
 parserOptions:
-  ecmaVersion: 12
+  ecmaVersion: latest
 plugins:
   - "@typescript-eslint"
   - "import"
