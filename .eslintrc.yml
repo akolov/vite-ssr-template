@@ -2,12 +2,13 @@ env:
   browser: true
   es2021: true
   node: true
+  vue/setup-compiler-macros: true
 extends:
-  - "plugin:vue/vue3-recommended"
-  - "@vue/typescript/recommended"
   - "eslint:recommended"
   - "plugin:import/recommended"
   - "plugin:import/typescript"
+  - "plugin:vue/vue3-recommended"
+  - "@vue/typescript/recommended"
 overrides:
   - files: [ "*.config.js" ]
     env:
@@ -28,3 +29,12 @@ settings:
 rules:
   sort-imports:
     - error
+  vue/max-attributes-per-line:
+    - off
+  vue/no-v-html:
+    - off
+  vue/html-closing-bracket-spacing:
+    - error
+    - startTag: never
+    - endTag: never
+    - selfClosingTag: never
