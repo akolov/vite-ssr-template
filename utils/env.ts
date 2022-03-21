@@ -1,7 +1,7 @@
 export const isBrowser = typeof window !== "undefined"
 export const isProduction = process.env.NODE_ENV === "production"
-export const isDarkMode = typeof window !== "undefined" && typeof window.matchMedia !== "undefined" ? window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches : false
-export const language = typeof window !== "undefined" ? window.navigator.language : import.meta.env.VITE_LOCALE as string
+export const isDarkMode = () => typeof window !== "undefined" && typeof window.matchMedia !== "undefined" ? window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches : false
+export const language = () => typeof window !== "undefined" ? window.navigator.language : import.meta.env.VITE_LOCALE as string
 
 
 type GlobalConstants = {
