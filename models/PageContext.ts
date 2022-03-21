@@ -3,17 +3,21 @@ import { StateTree } from "pinia"
 export type Component = object & { Page?: Component, pageProps?: Record<string, unknown> }
 
 export type PageContext = {
-  Page: Component
-  initialState: Record<string, StateTree>
-  appHtml: string
-  pageProps?: Record<string, unknown>
+
+  documentProps?: {
+    title: string
+    description?: string
+  }
+
   pageExports: {
     documentProps?: {
       title?: string
     }
   }
-  documentProps?: {
-    title: string
-    description?: string
-  }
+
+  Page: Component
+  appHtml: string
+  initialState: Record<string, StateTree>
+  pageProps?: Record<string, unknown>
+
 }
