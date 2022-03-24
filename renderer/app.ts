@@ -8,6 +8,7 @@ import axios from "axios"
 import { createPinia } from "pinia"
 import devalue from "@nuxt/devalue"
 import { globals } from "~/utils/env"
+import piniaPluginPersistedstate from "pinia-plugin-persistedstate"
 import { setPageContext } from "~/utils/usePageContext"
 import { useI18n } from "vue-i18n"
 
@@ -52,6 +53,8 @@ function createApp(pageContext: PageContext) {
   })
 
   const pinia = createPinia()
+  pinia.use(piniaPluginPersistedstate)
+
   const app = createSSRApp(PageWithWrapper)
   app.use(pinia)
   app.use(i18n)
