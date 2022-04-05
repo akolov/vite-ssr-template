@@ -22,7 +22,7 @@ async function startServer() {
   else {
     viteDevServer = await vite.createServer({
       root,
-      server: { middlewareMode: "ssr" },
+      server: { middlewareMode: "ssr" }
     })
     app.use(viteDevServer.middlewares)
   }
@@ -32,22 +32,28 @@ async function startServer() {
     const url = req.originalUrl
     const pageContextInit = {
       url,
+      redirectTo: undefined
     }
 
     const pageContext = await renderPage(pageContextInit)
-    const { httpResponse } = pageContext
+    const { httpResponse, redirectTo } = pageContext
 
-    if (!httpResponse) {
+    if (redirectTo) {
+      res.redirect(307, redirectTo)
+    }
+    else if (!httpResponse) {
       return next()
     }
-
-    const stream = await httpResponse.getNodeStream()
-    const { statusCode, contentType } = httpResponse
-    res.status(statusCode).type(contentType)
-    stream.pipe(res)
+    else {
+      const stream = await httpResponse.getNodeStream()
+      const { statusCode, contentType } = httpResponse
+      res.status(statusCode).type(contentType)
+      stream.pipe(res)
+    }
   })
 
   const port = process.env.PORT || 3000
+
   app.listen(port)
   console.log(`Server running at http://localhost:${port}`)
 }

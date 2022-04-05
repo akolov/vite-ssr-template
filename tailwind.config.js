@@ -10,14 +10,14 @@ module.exports = {
     "./pages/**/*.{vue,js,ts,jsx,tsx}",
     "./renderer/**/*.{vue,js,ts,jsx,tsx}"
   ],
-  darkMode: "media",
+  darkMode: "class",
   theme: {
     extend: {
       colors: themeColors
     }
   },
   variants: {
-    extend: {},
+    extend: {}
   },
   plugins: []
 }

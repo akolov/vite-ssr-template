@@ -1,9 +1,8 @@
 import type { Component, PageContext } from "~/models/PageContext"
-
 import { createSSRApp, defineComponent, h, markRaw, reactive } from "vue"
 import { en, i18n } from "~/utils/i18n"
-
 import PageShell from "~/components/PageShell.vue"
+import Toast from "vue-toastification"
 import axios from "axios"
 import { createPinia } from "pinia"
 import devalue from "@nuxt/devalue"
@@ -37,7 +36,7 @@ function createApp(pageContext: PageContext) {
       pageProps: markRaw(pageContext.pageProps || {}),
     }),
     created() {
-      rootComponent = this
+      rootComponent = this // eslint-disable-line @typescript-eslint/no-this-alias
     },
     render() {
       return h(
@@ -56,6 +55,7 @@ function createApp(pageContext: PageContext) {
   pinia.use(piniaPluginPersistedstate)
 
   const app = createSSRApp(PageWithWrapper)
+  app.use(Toast)
   app.use(pinia)
   app.use(i18n)
 

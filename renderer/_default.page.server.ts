@@ -1,6 +1,8 @@
 import type { PageContext } from "~/models/PageContext"
 import type { PageContextBuiltIn } from "vite-plugin-ssr"
 
+import { PatchedHttpsProxyAgent } from "~/utils/httpsProxyAgent"
+import axios from "axios"
 import { createApp } from "./app"
 import { escapeInject } from "vite-plugin-ssr"
 import { getPageTitle } from "~/utils/getPageTitle"
@@ -8,18 +10,26 @@ import { globals } from "~/utils/env"
 import { i18n } from "~/utils/i18n"
 import { renderToNodeStream } from "@vue/server-renderer"
 
-export { passToClient }
-export { render, onBeforeRender }
+export { render, onBeforeRender, passToClient }
 
 
-const passToClient = ["pageProps", "documentProps", "initialState"]
+const passToClient = ["documentProps", "initialState", "pageProps", "redirectTo", "routeParams"]
 
 async function render(pageContext: PageContextBuiltIn & PageContext) {
-  const stream = pageContext.appHtml
+  const passthroughURLs = ["/", "/fake-404-url"]
+  if (!pageContext.isPrerendering && !pageContext.token && !passthroughURLs.includes(pageContext.url)) {
+    return {
+      documentHtml: null,
+      pageContext: {
+        redirectTo: "/"
+      }
+    }
+  }
 
+  const stream = pageContext.appHtml
   const { documentProps } = pageContext
   const title = getPageTitle(pageContext)
-  const desc = (documentProps && documentProps.description) || i18n.global.t("seo.description");
+  const desc = (documentProps && documentProps.description) || i18n.global.t("seo.description")
 
   return escapeInject`<!DOCTYPE html>
     <html lang="en">
@@ -44,13 +54,26 @@ async function render(pageContext: PageContextBuiltIn & PageContext) {
 }
 
 async function onBeforeRender(pageContext: PageContextBuiltIn & PageContext) {
-  const { app, pinia } = createApp(pageContext)
+  axios.defaults.headers.common["Authorization"] = `Bearer ${pageContext.token}`
+  if (globals.proxyHost && globals.proxyPort) {
+    axios.defaults.httpsAgent = new PatchedHttpsProxyAgent({
+      host: globals.proxyHost,
+      port: globals.proxyPort,
+      rejectUnauthorized: false
+    })
+  }
+
+  const prerenderPageContext = await (pageContext as unknown).runOnBeforeRenderPageHook(pageContext)
+  const extendedPageContext = { ...pageContext, ...prerenderPageContext.pageContext }
+  const { app, pinia } = createApp(extendedPageContext)
   const appHtml = renderToNodeStream(app)
   const initialState = pinia.state.value
+
   return {
     pageContext: {
+      ...prerenderPageContext.pageContext,
       initialState,
-      appHtml,
+      appHtml
     }
   }
 }

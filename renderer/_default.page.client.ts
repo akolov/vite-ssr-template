@@ -1,13 +1,19 @@
+import { navigate, useClientRouter } from "vite-plugin-ssr/client/router"
 import type { PageContext } from "~/models/PageContext"
 import type { PageContextBuiltInClient } from "vite-plugin-ssr/client/router"
 import { createApp } from "./app"
 import { getPageTitle } from "~/utils/getPageTitle"
-import { useClientRouter } from "vite-plugin-ssr/client/router"
 
 
 let context: ReturnType<typeof createApp>
 const { hydrationPromise } = useClientRouter({
   render(pageContext: PageContextBuiltInClient & PageContext) {
+    const { redirectTo } = pageContext
+    if (redirectTo) {
+      navigate(redirectTo)
+      return
+    }
+
     if (!context) {
       context = createApp(pageContext)
       context.pinia.state.value = pageContext.initialState

@@ -18,6 +18,8 @@ export type PageContext = {
   Page: Component
   appHtml: string
   initialState: Record<string, StateTree>
+  isPrerendering?: boolean
   pageProps?: Record<string, unknown>
+  redirectTo?: string
 
 }

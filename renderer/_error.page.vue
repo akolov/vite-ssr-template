@@ -12,3 +12,9 @@
 <script lang="ts" setup>
 defineProps(['is404'])
 </script>
+
+<style scoped>
+h1, p {
+  @apply text-white dark:text-white;
+}
+</style>
