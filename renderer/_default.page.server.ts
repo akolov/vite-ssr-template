@@ -16,16 +16,6 @@ export { render, onBeforeRender, passToClient }
 const passToClient = ["documentProps", "initialState", "pageProps", "redirectTo", "routeParams"]
 
 async function render(pageContext: PageContextBuiltIn & PageContext) {
-  const passthroughURLs = ["/", "/fake-404-url"]
-  if (!pageContext.isPrerendering && !pageContext.token && !passthroughURLs.includes(pageContext.url)) {
-    return {
-      documentHtml: null,
-      pageContext: {
-        redirectTo: "/"
-      }
-    }
-  }
-
   const stream = pageContext.appHtml
   const { documentProps } = pageContext
   const title = getPageTitle(pageContext)
@@ -54,7 +44,6 @@ async function render(pageContext: PageContextBuiltIn & PageContext) {
 }
 
 async function onBeforeRender(pageContext: PageContextBuiltIn & PageContext) {
-  axios.defaults.headers.common["Authorization"] = `Bearer ${pageContext.token}`
   if (globals.proxyHost && globals.proxyPort) {
     axios.defaults.httpsAgent = new PatchedHttpsProxyAgent({
       host: globals.proxyHost,
