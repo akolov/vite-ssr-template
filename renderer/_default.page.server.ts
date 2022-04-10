@@ -52,7 +52,8 @@ async function onBeforeRender(pageContext: PageContextBuiltIn & PageContext) {
     })
   }
 
-  const prerenderPageContext = await (pageContext as unknown).runOnBeforeRenderPageHook(pageContext)
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const prerenderPageContext = await (pageContext as any).runOnBeforeRenderPageHook(pageContext)
   const extendedPageContext = { ...pageContext, ...prerenderPageContext.pageContext }
   const { app, pinia } = createApp(extendedPageContext)
   const appHtml = renderToNodeStream(app)
