@@ -7,8 +7,8 @@ export const getLanguage = () => typeof window !== "undefined" ? window.navigato
 type GlobalConstants = {
   appName: string
   appVersion: string
-  appVersionBuild: string,
-  baseURL: string,
+  appVersionBuild: string
+  baseURL: string
   proxyHost: string | null
   proxyPort: string | null
 }
