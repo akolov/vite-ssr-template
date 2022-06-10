@@ -10,9 +10,13 @@
 </template>
 
 <script lang="ts" setup>
-defineProps<{
-  is404: boolean
-}>()
+type Props = {
+  is404?: boolean
+}
+
+withDefaults(defineProps<Props>(), {
+  is404: false
+})
 </script>
 
 <style lang="postcss" scoped>
