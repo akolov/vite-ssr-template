@@ -15,7 +15,7 @@ export const useMainStore = defineStore("main", {
   persist: {
     storage: {
       getItem: (key) => { return myLocalStorage().getItem(key) },
-      setItem:  (key, value) => { myLocalStorage().setItem(key, value) }
+      setItem: (key, value) => { myLocalStorage().setItem(key, value) }
     }
   }
 })
