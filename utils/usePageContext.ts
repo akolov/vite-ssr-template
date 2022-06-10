@@ -3,7 +3,7 @@
 
 import type { App } from "@vue/runtime-core"
 import { PageContext } from "~/models/PageContext"
-import { inject } from "@vue/runtime-core"
+import { inject } from "vue"
 
 export { usePageContext }
 export { setPageContext }
@@ -11,9 +11,9 @@ export { setPageContext }
 
 const key = Symbol()
 
-function usePageContext() {
+function usePageContext(): PageContext {
   const pageContext = inject(key)
-  return pageContext
+  return pageContext as PageContext
 }
 
 function setPageContext(app: App, pageContext: PageContext) {
