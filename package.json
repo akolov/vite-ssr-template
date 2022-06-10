@@ -3,8 +3,8 @@
     "dev": "npm run server",
     "prod": "npm run build && npm run server:prod",
     "build": "vite build && vite build --ssr && vite-plugin-ssr prerender",
-    "server": "ts-node -r tsconfig-paths/register ./server",
-    "server:prod": "cross-env NODE_ENV=production ts-node ./server",
+    "server:dev": "ts-node -r tsconfig-paths/register ./server",
+    "server:prod": "cross-env NODE_ENV=production ts-node -r tsconfig-paths/register ./server",
     "svgo": "svgo -f . -r --config svgo.config.js",
     "lint": "eslint --fix --ignore-pattern dist .",
     "cert": "mkdir -p .cert && mkcert -key-file ./.cert/key.pem -cert-file ./.cert/cert.pem 'localhost'"
