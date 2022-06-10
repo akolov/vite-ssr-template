@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "dev": "npm run server",
+    "dev": "npm run server:dev",
     "prod": "npm run build && npm run server:prod",
     "build": "vite build && vite build --ssr && vite-plugin-ssr prerender",
     "server:dev": "ts-node -r tsconfig-paths/register ./server",
