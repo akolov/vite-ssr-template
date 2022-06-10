@@ -1,6 +1,7 @@
 import * as process from "process"
 import * as vite from "vite"
 import express, { static as expressStatic } from "express"
+import { PageContext } from "~/models/PageContext"
 import compression from "compression"
 import { createPageRenderer } from "vite-plugin-ssr"
 import { fileURLToPath } from "url"
@@ -35,11 +36,10 @@ async function startServer() {
   app.get("*", async (req, res, next) => {
     const url = req.originalUrl
     const pageContextInit = {
-      url,
-      redirectTo: undefined
+      url
     }
 
-    const pageContext = await renderPage(pageContextInit)
+    const pageContext = await renderPage<PageContext, typeof pageContextInit>(pageContextInit)
     const { httpResponse, redirectTo } = pageContext
 
     if (redirectTo) {
