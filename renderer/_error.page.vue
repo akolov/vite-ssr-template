@@ -17,6 +17,6 @@ defineProps<{
 
 <style lang="postcss" scoped>
 h1, p {
-  @apply text-white dark:text-white;
+  @apply text-black dark:text-white;
 }
 </style>
