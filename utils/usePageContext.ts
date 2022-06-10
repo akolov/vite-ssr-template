@@ -11,9 +11,9 @@ export { setPageContext }
 
 const key = Symbol()
 
-function usePageContext(): PageContext {
+function usePageContext<T extends PageContext>(): T {
   const pageContext = inject(key)
-  return pageContext as PageContext
+  return pageContext as T
 }
 
 function setPageContext(app: App, pageContext: PageContext) {
