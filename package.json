@@ -1,10 +1,11 @@
 {
+  "type": "module",
   "scripts": {
     "dev": "npm run server:dev",
     "prod": "npm run build && npm run server:prod",
     "build": "vite build && vite build --ssr && vite-plugin-ssr prerender",
-    "server:dev": "ts-node -r tsconfig-paths/register ./server",
-    "server:prod": "cross-env NODE_ENV=production ts-node -r tsconfig-paths/register ./server",
+    "server:dev": "node --loader ts-node/esm ./server/index.ts",
+    "server:prod": "cross-env NODE_ENV=production node --loader ts-node/esm ./server/index.ts",
     "svgo": "svgo -f . -r --config svgo.config.js",
     "lint": "eslint --fix --ignore-pattern dist .",
     "cert": "mkdir -p .cert && mkcert -key-file ./.cert/key.pem -cert-file ./.cert/cert.pem 'localhost'"
