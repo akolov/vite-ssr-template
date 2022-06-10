@@ -33,6 +33,10 @@ rules:
     - error
   vue/max-attributes-per-line:
     - off
+  vue/multi-word-component-names:
+    - error
+    - ignores:
+      - index.page
   vue/no-v-html:
     - off
   vue/html-closing-bracket-spacing:
