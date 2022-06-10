@@ -1,8 +1,9 @@
+import type { PageContextBuiltIn } from "vite-plugin-ssr"
 import { StateTree } from "pinia"
 
 export type Component = object & { Page?: Component, pageProps?: Record<string, unknown> }
 
-export type PageContext = {
+export type PageContext = PageContextBuiltIn & {
 
   documentProps?: {
     title: string
