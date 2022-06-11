@@ -35,10 +35,10 @@ hydrationPromise.then(() => {
 })
 
 function onTransitionStart() {
-  document.querySelector(".content")?.classList.add("page-transition-before")
+  document.querySelector(".page-content")?.classList.add("page-transition-before")
 }
 
 function onTransitionEnd() {
-  document.querySelector(".content")?.classList.remove("page-transition-before")
-  document.querySelector(".content")?.classList.add("page-transition-after")
+  document.querySelector(".page-content")?.classList.remove("page-transition-before")
+  document.querySelector(".page-content")?.classList.add("page-transition-after")
 }
