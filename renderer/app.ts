@@ -14,10 +14,7 @@ import { useI18n } from "vue-i18n"
 
 axios.defaults.headers.common["X-WebClient"] = `${globals.appName}/${globals.appVersion} (build:${globals.appVersionBuild})`
 
-
-export { createApp }
-
-function createApp(pageContext: PageContext) {
+export function createApp(pageContext: PageContext) {
   const { Page } = pageContext
 
   let rootComponent: Component
@@ -40,7 +37,7 @@ function createApp(pageContext: PageContext) {
     },
     render() {
       return h(
-        PageShell,
+        PageShell as Component,
         {},
         {
           default: () => {
